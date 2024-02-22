@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/var/www/html/backend  # Montez le répertoire backend dans le conteneur
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin  # Définissez un mot de passe sécurisé pour le compte root
+      MYSQL_DATABASE: db    # Définissez le nom de votre base de données
+      MYSQL_USER: valou          # Définissez le nom d'utilisateur MySQL
+      MYSQL_PASSWORD: test  # Définissez un mot de passe sécurisé pour l'utilisateur MySQL
+    ports:
+      - "3306:3306"
